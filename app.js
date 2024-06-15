@@ -1,4 +1,4 @@
-giconst express = require('express')
+const express = require('express')
 const {open} = require('sqlite')
 const sqlite3 = require('sqlite3')
 
@@ -48,8 +48,9 @@ app.post('/register', async (request, response) => {
   const databaseUser = await database.get(selectUserQuery)
 
   if (databaseUser === undefined) {
-    const createUserQuery = `INSERT INTO 
-         user (username,name password,gender,location)
+    const createUserQuery = `
+    INSERT INTO 
+         user (username,name, password,gender,location)
          VALUES
          (
             '${username}',
@@ -73,7 +74,7 @@ app.post('/register', async (request, response) => {
 })
 
 app.post('/login', async (request, response) => {
-  const {uesrname, password} = request.body
+  const {username, password} = request.body
 
   const selectUserQuery = `SELECT 
     * 
@@ -146,7 +147,7 @@ app.put('/change_password', async (request, response) => {
     }
   } else {
     response.status(400)
-    response.send('Invalid create password')
+    response.send('Invalid current password')
   }
 })
 
